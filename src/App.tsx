@@ -82,12 +82,11 @@ const TRANSLATIONS = {
   es: {
     title: "Balance Diario de Carbono",
     subtitle: "Esta aplicación estima, de forma educativa, cuántos átomos de carbono entran por la comida, cuántos se oxidan durante las actividades diarias y cuánto CO₂ podría producirse.",
-    classDay: "Día de Clase",
-    partyDay: "Día de Fiesta",
+    regularDay: "Día Regular",
     restDay: "Día de Descanso",
     reset: "Reiniciar",
     modelNote: "Modelo didáctico: No usar como herramienta clínica o nutricional. Los resultados son aproximaciones para aprender sobre metabolismo y balance de materia.",
-    studentParams: "Parámetros del Estudiante",
+    yourParams: "Tus Parámetros",
     weight: "Peso Corporal (kg)",
     kcalPerGC: "kcal por gramo de C oxidado",
     carbonFractions: "Fracciones de Carbono Usadas",
@@ -272,12 +271,11 @@ const TRANSLATIONS = {
   en: {
     title: "Daily Carbon Balance",
     subtitle: "This application estimates, for educational purposes, how many carbon atoms enter through food, how many are oxidized during daily activities, and how much CO₂ might be produced.",
-    classDay: "Class Day",
-    partyDay: "Party Day",
+    regularDay: "Regular Day",
     restDay: "Rest Day",
     reset: "Reset",
     modelNote: "Educational model: Not for clinical or nutritional use. Results are approximations to learn about metabolism and matter balance.",
-    studentParams: "Student Parameters",
+    yourParams: "Your Parameters",
     weight: "Body Weight (kg)",
     kcalPerGC: "kcal per gram of C oxidized",
     carbonFractions: "Carbon Fractions Used",
@@ -599,23 +597,13 @@ const ACTIVITY_CATEGORIES: Record<string, Omit<ActivityItem, 'id' | 'hours'>[]> 
   ]
 };
 
-const INITIAL_MEALS: Meal[] = [
-  { id: '1', name: 'Desayuno', carbs: 40, fat: 10, protein: 15, time: 8 },
-  { id: '2', name: 'Almuerzo', carbs: 60, fat: 20, protein: 30, time: 13 },
-  { id: '3', name: 'Cena', carbs: 30, fat: 10, protein: 20, time: 20 },
-];
+const INITIAL_MEALS: Meal[] = [];
 
-const INITIAL_ACTIVITIES: ActivityItem[] = [
-  { id: '1', name: 'Dormir', met: 0.95, hours: 8, startTime: 0 },
-  { id: '2', name: 'Estudiar sentado', met: 1.3, hours: 6, startTime: 8 },
-  { id: '3', name: 'Caminar', met: 2.5, hours: 1, startTime: 14 },
-  { id: '4', name: 'Ejercicio moderado', met: 6.0, hours: 1, startTime: 17 },
-  { id: '5', name: 'Actividades diarias', met: 2.0, hours: 8, startTime: 15 },
-];
+const INITIAL_ACTIVITIES: ActivityItem[] = [];
 
 const EXAMPLES = {
-  clase: {
-    name: 'Día de Clase',
+  regular: {
+    name: 'Día Regular',
     weight: 70,
     meals: [
       { id: '1', name: 'Arepa de huevo + Café', carbs: 37, fat: 20, protein: 11, time: 7 },
@@ -630,23 +618,6 @@ const EXAMPLES = {
       { id: '4', name: 'Caminar (campus)', met: 3.5, hours: 1, startTime: 13 },
       { id: '5', name: 'Transporte (bus)', met: 1.3, hours: 2, startTime: 18 },
       { id: '6', name: 'Rutina casa', met: 2.0, hours: 4, startTime: 20 },
-    ]
-  },
-  fiesta: {
-    name: 'Día de Fiesta',
-    weight: 70,
-    meals: [
-      { id: '1', name: 'Desayuno tarde', carbs: 30, fat: 10, protein: 10, time: 11 },
-      { id: '2', name: 'Almuerzo: Salchipapa', carbs: 30, fat: 25, protein: 12, time: 15 },
-      { id: '3', name: 'Cena: Pizza', carbs: 60, fat: 24, protein: 24, time: 21 },
-      { id: '4', name: 'Bebidas azucaradas', carbs: 60, fat: 0, protein: 0, time: 23 },
-    ],
-    activities: [
-      { id: '1', name: 'Dormir', met: 0.95, hours: 9, startTime: 2 },
-      { id: '2', name: 'Descanso', met: 1.3, hours: 6, startTime: 11 },
-      { id: '3', name: 'Bailar intenso', met: 6.0, hours: 4, startTime: 22 },
-      { id: '4', name: 'Socializar (parado)', met: 2.5, hours: 3, startTime: 19 },
-      { id: '5', name: 'Caminar', met: 3.0, hours: 2, startTime: 17 },
     ]
   },
   descanso: {
@@ -1318,8 +1289,8 @@ export default function App() {
   const resetApp = () => {
     setWeight(70);
     setKcalPerGC(10.5);
-    setMeals([{ id: '1', name: 'Comida', carbs: 0, fat: 0, protein: 0, time: 12 }]);
-    setActivities([{ id: '1', name: 'Actividad', met: 1, hours: 0, startTime: 12 }]);
+    setMeals([]);
+    setActivities([]);
   };
 
   const handleViewResults = () => {
@@ -1890,16 +1861,10 @@ export default function App() {
               <div className="flex flex-wrap gap-2 justify-center md:justify-end">
                 <div className="flex bg-stone-200 dark:bg-stone-800 p-1 rounded-lg gap-1">
                   <button 
-                    onClick={() => loadExample('clase')}
+                    onClick={() => loadExample('regular')}
                     className="px-3 py-1.5 bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-200 rounded-md shadow-sm text-xs font-bold hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-700 dark:hover:text-emerald-400 transition-all"
                   >
-                    {t('classDay')}
-                  </button>
-                  <button 
-                    onClick={() => loadExample('fiesta')}
-                    className="px-3 py-1.5 bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-200 rounded-md shadow-sm text-xs font-bold hover:bg-amber-50 dark:hover:bg-amber-900/30 hover:text-amber-700 dark:hover:text-amber-400 transition-all"
-                  >
-                    {t('partyDay')}
+                    {t('regularDay')}
                   </button>
                   <button 
                     onClick={() => loadExample('descanso')}
@@ -1971,7 +1936,7 @@ export default function App() {
                 <section className="bg-white dark:bg-stone-900 p-6 rounded-2xl shadow-sm border border-stone-200 dark:border-stone-800">
                   <div className="flex items-center gap-2 mb-4 text-stone-800 dark:text-stone-100 font-semibold">
                     <Scale size={20} />
-                    <h2>{t('studentParams')}</h2>
+                    <h2>{t('yourParams')}</h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">

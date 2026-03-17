@@ -4,7 +4,7 @@ Bienvenido al simulador. Sigue estos pasos para aprovechar al máximo esta herra
 
 ## 1. Inicio y Configuración
 - **Pantalla de Bienvenida:** Al abrir la app, verás una pantalla de inicio. Puedes elegir tu idioma (Español/Inglés) y leer las instrucciones rápidas.
-- **Parámetros del Estudiante:** En la parte superior de la aplicación principal, puedes ajustar tu **Peso Corporal**. Esto es crucial, ya que el gasto de energía (y la oxidación de carbono) depende directamente de tu masa.
+- **Tus Parámetros:** En la parte superior de la aplicación principal, puedes ajustar tu **Peso Corporal**. Esto es crucial, ya que el gasto de energía (y la oxidación de carbono) depende directamente de tu masa.
 - **Temas:** Usa el icono del Sol/Luna en la esquina superior derecha para cambiar entre modo claro y oscuro.
 
 ## 2. Registro de Alimentos (Entrada de Materia)
@@ -34,6 +34,6 @@ Bienvenido al simulador. Sigue estos pasos para aprovechar al máximo esta herra
 ---
 
 ### 💡 Tips para aprender:
-1. Prueba el ejemplo **"Día de Fiesta"** y observa cómo el exceso de comida y baile afecta el balance.
+1. Prueba el ejemplo **"Día Regular"** y observa cómo las actividades cotidianas afectan el balance.
 2. Compara el ejemplo **"Día de Descanso"** para ver cómo el metabolismo basal consume carbono incluso sin ejercicio intenso.
 3. Observa cómo las grasas, al ser más densas en carbono, aportan mucho más al balance que los carbohidratos por cada gramo ingerido.
