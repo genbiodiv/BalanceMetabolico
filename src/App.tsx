@@ -198,9 +198,14 @@ const TRANSLATIONS = {
     challenge4: "Balance Global: Si hoy tienes un balance positivo de 50g de C y mañana duermes 8 horas (Metabolismo Basal), ¿cuánto de ese carbono oxidarás solo por respirar mientras duermes?",
     challenge5: "Transformación de la Materia: Rastrea el camino de un átomo de carbono desde un trozo de pan (Carbohidrato) hasta la atmósfera. ¿En qué moléculas se convierte?",
     challenge6: "Densidad Energética: ¿Por qué el simulador muestra una liberación de energía (kcal) mucho mayor al oxidar 10g de Grasa que 10g de Carbohidratos, y cómo se relaciona esto con el CO₂ producido?",
-    gameplayInstructions: "Instrucciones de Juego",
-    howToPlay: "Cómo jugar: Registra tus comidas y actividades diarias. Observa cómo el carbono fluye a través de tu cuerpo. El objetivo es entender el balance de materia y energía.",
-    partsExplanation: "Partes: Comida (entrada de C), Actividades (salida de C vía oxidación), Balance (materia retenida o perdida).",
+    gameplayInstructions: "Instrucciones",
+    howToPlay: "Cómo funciona: El simulador rastrea el flujo de átomos de carbono en tu cuerpo. Los carbonos entran con la comida y salen al exhalar CO₂ durante el metabolismo celular.",
+    registrationTitle: "Registro de datos",
+    registrationDesc: "1. Ingresa tu peso y parámetros. 2. Registra tus comidas (entrada de C). 3. Registra tus actividades (salida de C). Asegúrate de completar las 24 horas para un balance preciso.",
+    graphsTitle: "Visualización de gráficas",
+    graphsDesc: "En la sección de resultados, podrás ver gráficas de flujo de carbono, gasto energético y balance acumulado hora por hora.",
+    downloadTitle: "Descarga de información",
+    downloadDesc: "Puedes exportar tus datos en formato CSV para análisis detallado o generar un reporte en PDF con todas las gráficas y resúmenes.",
     splashTitle: "Bienvenido al Simulador de Balance de Carbono",
     startGame: "Comenzar",
     viewResults: "Ver Resultados",
@@ -387,9 +392,14 @@ const TRANSLATIONS = {
     challenge4: "Global Balance: If you have a positive carbon balance of 50g today, and you decide to sleep 8 hours tomorrow (Basal Metabolism), how much of that carbon will you oxidize just by breathing while sleeping?",
     challenge5: "Matter Transformation: Trace the path of a carbon atom from a piece of bread (Carbohydrate) to the atmosphere. What molecules does it become along the way?",
     challenge6: "Energy Density: Why does the simulator show a much larger energy release (kcal) when you oxidize 10g of Fat compared to 10g of Carbohydrates, and how does this relate to the CO₂ produced?",
-    gameplayInstructions: "Gameplay Instructions",
-    howToPlay: "How to play: Register your daily meals and activities. Observe how carbon flows through your body. The goal is to understand matter and energy balance.",
-    partsExplanation: "Parts: Food (C input), Activities (C output via oxidation), Balance (matter retained or lost).",
+    gameplayInstructions: "Instructions",
+    howToPlay: "How it works: The simulator tracks the flow of carbon atoms in your body. Carbons enter with food and leave when exhaling CO₂ during cellular metabolism.",
+    registrationTitle: "Data Registration",
+    registrationDesc: "1. Enter your weight and parameters. 2. Register your meals (C input). 3. Register your activities (C output). Make sure to complete all 24 hours for an accurate balance.",
+    graphsTitle: "Graph Visualization",
+    graphsDesc: "In the results section, you can see graphs of carbon flow, energy expenditure, and cumulative balance hour by hour.",
+    downloadTitle: "Download Information",
+    downloadDesc: "You can export your data in CSV format for detailed analysis or generate a PDF report with all graphs and summaries.",
     splashTitle: "Welcome to the Carbon Balance Simulator",
     startGame: "Start",
     viewResults: "View Results",
@@ -2697,10 +2707,24 @@ export default function App() {
                   </button>
                 </div>
                 <div className="p-6 md:p-8 overflow-y-auto space-y-6 custom-scrollbar">
-                  <div className="space-y-4 text-stone-600 dark:text-stone-400">
+                  <div className="space-y-6 text-stone-600 dark:text-stone-400">
                     <div className="space-y-2">
                       <p className="font-bold text-stone-800 dark:text-stone-200 text-lg">{t('howToPlay')}</p>
-                      <p className="leading-relaxed">{t('partsExplanation')}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="font-bold text-stone-800 dark:text-stone-200">{t('registrationTitle')}</p>
+                      <p className="leading-relaxed">{t('registrationDesc')}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="font-bold text-stone-800 dark:text-stone-200">{t('graphsTitle')}</p>
+                      <p className="leading-relaxed">{t('graphsDesc')}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="font-bold text-stone-800 dark:text-stone-200">{t('downloadTitle')}</p>
+                      <p className="leading-relaxed">{t('downloadDesc')}</p>
                     </div>
 
                     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800 text-sm">

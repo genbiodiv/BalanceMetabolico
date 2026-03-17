@@ -1,39 +1,34 @@
 # Instrucciones de Uso - Simulador de Balance de Carbono
 
-Bienvenido al simulador. Sigue estos pasos para aprovechar al máximo esta herramienta educativa.
+Este simulador es una herramienta educativa diseñada para rastrear el flujo de átomos de carbono en el cuerpo humano. Sigue estos pasos para registrar tus datos y analizar los resultados.
 
-## 1. Inicio y Configuración
-- **Pantalla de Bienvenida:** Al abrir la app, verás una pantalla de inicio. Puedes elegir tu idioma (Español/Inglés) y leer las instrucciones rápidas.
-- **Tus Parámetros:** En la parte superior de la aplicación principal, puedes ajustar tu **Peso Corporal**. Esto es crucial, ya que el gasto de energía (y la oxidación de carbono) depende directamente de tu masa.
-- **Temas:** Usa el icono del Sol/Luna en la esquina superior derecha para cambiar entre modo claro y oscuro.
+## 1. Cómo funciona el simulador
+El simulador rastrea el flujo de materia (carbono) y energía. Los átomos de carbono entran a tu cuerpo a través de los alimentos (carbohidratos, proteínas y grasas) y salen principalmente al exhalar CO₂ como producto del metabolismo celular para obtener energía.
 
-## 2. Registro de Alimentos (Entrada de Materia)
-- El carbono entra a tu cuerpo a través de las biomoléculas.
-- Haz clic en **"Añadir comida"** o usa el botón de **"Sugerencias"** para ver una lista de alimentos comunes (incluyendo opciones del Caribe colombiano).
-- Ingresa los gramos de Carbohidratos, Grasas y Proteínas. La app calculará automáticamente cuántos **gramos de Carbono puro** estás ingiriendo.
+## 2. Registro de datos
+Para obtener un balance preciso, sigue este orden:
+1. **Configuración inicial:** Ingresa tu peso y parámetros en la sección "Tus parámetros". El gasto energético depende directamente de tu masa corporal.
+2. **Entrada de Carbono (Comidas):** Registra lo que ingieres. Puedes usar el botón de "Sugerencias" para ver alimentos comunes. La app calcula los gramos de carbono puro en cada biomolécula.
+3. **Salida de Carbono (Actividades):** Registra tus actividades diarias. Cada actividad tiene una intensidad (MET). El simulador calcula cuánta energía quemas y cuánto carbono se oxida para producirla.
+   - *Importante:* Asegúrate de completar las 24 horas del día para que el balance sea real.
 
-## 3. Registro de Actividades (Salida de Materia)
-- El carbono sale de tu cuerpo principalmente al exhalar CO₂ durante la respiración celular.
-- Haz clic en **"Añadir actividad"** o usa las **"Sugerencias"**.
-- Cada actividad tiene un valor **MET** (intensidad). La app calcula cuánta energía (kcal) quemas y, basándose en eso, cuántos gramos de carbono se oxidan para producir esa energía.
-- **Nota:** Debes completar las 24 horas del día para tener un balance real. La app te avisará cuántas horas te faltan.
+## 3. Visualización de gráficas
+Una vez registrados los datos, haz clic en **"Ver Resultados"** para acceder a la sección de análisis:
+- **Balance Neto:** Un resumen visual de Carbono Ingerido vs. Oxidado.
+- **Gráfica de Flujo Horario:** Observa cómo cambia tu balance acumulado, el gasto de energía y la entrada de carbono hora por hora a lo largo del día.
+- **Diagrama de Flujo:** Visualiza el camino del carbono desde la comida hasta su exhalación o retención.
 
-## 4. Interpretación de Resultados
-- **Resumen Metabólico:** Observa el "Balance Neto de Carbono".
-  - **Positivo (Azul):** Estás reteniendo materia (posible almacenamiento de grasa o glucógeno).
-  - **Negativo (Rojo):** Estás oxidando reservas corporales (pérdida de masa).
-- **Gráfico de Visualización:** Compara visualmente lo que entra vs. lo que sale.
-- **Flujo de Materia:** Un diagrama que muestra el camino del carbono desde la comida hasta la retención o la exhalación.
+## 4. Descarga de información
+Puedes llevarte tus datos para un análisis más profundo:
+- **Exportar CSV:** Descarga una tabla con todos los registros de comida y actividad, incluyendo cálculos de carbono y energía.
+- **Generar PDF:** Crea un reporte completo que incluye todas las gráficas, el resumen del balance y las tablas de datos en un formato listo para imprimir o compartir.
 
-## 5. Sección de Aprendizaje
-- Desplázate hacia abajo para encontrar la sección **"¿Qué significa esto molecularmente?"**.
-- Haz clic en los botones de moléculas para ver modelos de Glucosa, Aminoácidos y Ácidos Grasos.
-- Lee las explicaciones didácticas para entender por qué "exhalamos nuestra comida".
-- Intenta resolver los **Desafíos de Aprendizaje** al final de la página.
+## 5. Desafíos de Aprendizaje
+Al final de la aplicación, encontrarás desafíos que te invitan a experimentar con el simulador para entender conceptos como la densidad energética de las grasas o el impacto del metabolismo basal.
 
 ---
 
-### 💡 Tips para aprender:
-1. Prueba el ejemplo **"Día Regular"** y observa cómo las actividades cotidianas afectan el balance.
-2. Compara el ejemplo **"Día de Descanso"** para ver cómo el metabolismo basal consume carbono incluso sin ejercicio intenso.
-3. Observa cómo las grasas, al ser más densas en carbono, aportan mucho más al balance que los carbohidratos por cada gramo ingerido.
+### 💡 Tips de análisis:
+1. Usa los **Ejemplos Predefinidos** (Día Regular, Día de Descanso) para ver cómo diferentes estilos de vida afectan el balance de materia.
+2. Explora la sección **"¿Qué significa esto molecularmente?"** para ver los modelos químicos de lo que estás registrando.
+3. Observa cómo el CO₂ producido aumenta drásticamente con actividades de alta intensidad.
