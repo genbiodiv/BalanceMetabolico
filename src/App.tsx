@@ -245,6 +245,7 @@ const TRANSLATIONS = {
     downloadCSV: "Descargar CSV",
     downloadImage: "Descargar Imagen",
     downloadPDF: "Descargar PDF",
+    loadExampleData: "Cargar datos de ejemplo",
     journeyTitle: "El Viaje del Átomo de Carbono",
     journeySubtitle: "Sigue el rastro de la materia desde tu plato hasta la atmósfera.",
     simulationView: "Simulación",
@@ -439,6 +440,7 @@ const TRANSLATIONS = {
     downloadCSV: "Download CSV",
     downloadImage: "Download Image",
     downloadPDF: "Download PDF",
+    loadExampleData: "Load example data",
     journeyTitle: "The Journey of the Carbon Atom",
     journeySubtitle: "Trace the path of matter from your plate to the atmosphere.",
     simulationView: "Simulation",
@@ -1868,7 +1870,8 @@ export default function App() {
                   <Info size={20} />
                 </button>
               </div>
-              <div className="flex flex-wrap gap-2 justify-center md:justify-end">
+              <div className="flex flex-wrap gap-2 justify-center md:justify-end items-center">
+                <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">{t('loadExampleData')}:</span>
                 <div className="flex bg-stone-200 dark:bg-stone-800 p-1 rounded-lg gap-1">
                   <button 
                     onClick={() => loadExample('regular')}
