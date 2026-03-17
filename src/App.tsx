@@ -27,6 +27,7 @@ import {
   Download,
   FileText,
   FileDown,
+  HelpCircle,
   Image as ImageIcon
 } from 'lucide-react';
 import { 
@@ -147,6 +148,20 @@ const TRANSLATIONS = {
     basalMetabolismDesc: "Incluso durmiendo o estudiando, tus células están \"quemando\" carbono para mantenerte vivo, bombear sangre y pensar.",
     designedBy: "Diseñado por {n} en Google AI Studio para el curso de Biología.",
     footer: "Diseñado por Rafik Neme en Google AI Studio para el curso de Biología.",
+    kcalHelpTitle: "¿Qué es kcal/g C?",
+    kcalHelpIntro: "Este valor representa cuánta energía (kcal) se libera cuando tu cuerpo oxida un gramo de carbono de las biomoléculas.",
+    kcalHelpOrigin: "¿De dónde viene?",
+    kcalHelpOriginDesc: "Se calcula dividiendo la densidad energética de una molécula (kcal/g) entre su contenido de carbono (g C/g):",
+    kcalHelpCarbs: "Carbohidratos: 4 kcal/g ÷ 0.40 g C/g = 10.0 kcal/g C",
+    kcalHelpFats: "Grasas: 9 kcal/g ÷ 0.77 g C/g = 11.7 kcal/g C",
+    kcalHelpProteins: "Proteínas: 4 kcal/g ÷ 0.53 g C/g = 7.5 kcal/g C",
+    kcalHelpAverage: "El valor por defecto (10.5) es un promedio ponderado para una dieta mixta.",
+    kcalHelpChanges: "¿Qué tanto cambia?",
+    kcalHelpChangesDesc: "Este valor fluctúa según el 'combustible' que tu cuerpo esté usando:",
+    kcalHelpRest: "En reposo/ayuno: Quemas más grasa (valor cercano a 11.5).",
+    kcalHelpExercise: "Ejercicio intenso: Quemas más glucosa (valor cercano a 10.0).",
+    kcalHelpKetosis: "Cetosis: Alta oxidación de grasas (el valor sube).",
+    kcalHelpStarvation: "Inanición: Oxidación de proteínas (el valor baja hacia 7.5).",
     foodSuggestions: "Sugerencias de Comida",
     activitySuggestions: "Sugerencias de Actividades",
     molecularModelsTitle: "Modelos Moleculares y Carbono",
@@ -323,6 +338,20 @@ const TRANSLATIONS = {
     basalMetabolismDesc: "Even while sleeping or studying, your cells are \"burning\" carbon to keep you alive, pump blood, and think.",
     designedBy: "Designed by {n} in Google AI Studio for the Biology course.",
     footer: "Designed by Rafik Neme in Google AI Studio for the Biology course.",
+    kcalHelpTitle: "What is kcal/g C?",
+    kcalHelpIntro: "This value represents how much energy (kcal) is released when your body oxidizes one gram of carbon from biomolecules.",
+    kcalHelpOrigin: "Where does it come from?",
+    kcalHelpOriginDesc: "It is calculated by dividing the energy density of a molecule (kcal/g) by its carbon content (g C/g):",
+    kcalHelpCarbs: "Carbohydrates: 4 kcal/g ÷ 0.40 g C/g = 10.0 kcal/g C",
+    kcalHelpFats: "Fats: 9 kcal/g ÷ 0.77 g C/g = 11.7 kcal/g C",
+    kcalHelpProteins: "Proteínas: 4 kcal/g ÷ 0.53 g C/g = 7.5 kcal/g C",
+    kcalHelpAverage: "The default value (10.5) is a weighted average for a mixed diet.",
+    kcalHelpChanges: "How does it change?",
+    kcalHelpChangesDesc: "This value fluctuates depending on the 'fuel' your body is using:",
+    kcalHelpRest: "At rest/fasting: You burn more fat (value closer to 11.5).",
+    kcalHelpExercise: "Intense exercise: You burn more glucose (value closer to 10.0).",
+    kcalHelpKetosis: "Ketosis: High fat oxidation (value rises).",
+    kcalHelpStarvation: "Starvation: Protein oxidation (value drops towards 7.5).",
     foodSuggestions: "Food Suggestions",
     activitySuggestions: "Activity Suggestions",
     molecularModelsTitle: "Molecular Models and Carbon",
@@ -1051,6 +1080,7 @@ export default function App() {
   const [isFoodModalOpen, setIsFoodModalOpen] = useState(false);
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
   const [isMoleculeModalOpen, setIsMoleculeModalOpen] = useState(false);
+  const [isKcalHelpOpen, setIsKcalHelpOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'simulation' | 'journey'>('simulation');
   
   const [language, setLanguage] = useState<'es' | 'en'>('es');
@@ -1954,7 +1984,16 @@ export default function App() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-stone-600 dark:text-stone-400">{t('kcalPerGC')}</label>
+                      <div className="flex items-center gap-2">
+                        <label className="text-sm font-medium text-stone-600 dark:text-stone-400">{t('kcalPerGC')}</label>
+                        <button 
+                          onClick={() => setIsKcalHelpOpen(true)}
+                          className="text-stone-400 hover:text-emerald-500 transition-colors"
+                          title={t('whatDoesThisMean')}
+                        >
+                          <HelpCircle size={14} />
+                        </button>
+                      </div>
                       <input 
                         type="number" 
                         step="0.1"
@@ -2367,7 +2406,102 @@ export default function App() {
             </div>
           )}
 
-          {isMoleculeModalOpen && (
+          {/* Modal: Kcal/g C Help */}
+      {isKcalHelpOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-white dark:bg-stone-900 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border border-stone-200 dark:border-stone-800"
+          >
+            <div className="p-6 border-b border-stone-100 dark:border-stone-800 flex items-center justify-between bg-stone-50/50 dark:bg-stone-900/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                  <Zap size={20} />
+                </div>
+                <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('kcalHelpTitle')}</h2>
+              </div>
+              <button 
+                onClick={() => setIsKcalHelpOpen(false)}
+                className="p-2 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-colors text-stone-500"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="p-8 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <p className="text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-medium">
+                {t('kcalHelpIntro')}
+              </p>
+
+              <div className="space-y-4">
+                <h3 className="text-sm font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                  {t('kcalHelpOrigin')}
+                </h3>
+                <div className="bg-stone-50 dark:bg-stone-800/50 p-6 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
+                  <p className="text-sm text-stone-500 dark:text-stone-400 italic">
+                    {t('kcalHelpOriginDesc')}
+                  </p>
+                  <div className="grid gap-3 font-mono text-sm text-stone-700 dark:text-stone-300">
+                    <div className="flex justify-between items-center p-2 bg-white dark:bg-stone-900 rounded-lg border border-stone-100 dark:border-stone-800">
+                      <span>{t('kcalHelpCarbs')}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-white dark:bg-stone-900 rounded-lg border border-stone-100 dark:border-stone-800">
+                      <span>{t('kcalHelpFats')}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-white dark:bg-stone-900 rounded-lg border border-stone-100 dark:border-stone-800">
+                      <span>{t('kcalHelpProteins')}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 pt-2">
+                    {t('kcalHelpAverage')}
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  {t('kcalHelpChanges')}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-xl border border-stone-100 dark:border-stone-800">
+                    <p className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">{t('kcalHelpRest')}</p>
+                    <p className="text-sm text-stone-600 dark:text-stone-300">{t('kcalHelpRest')}</p>
+                  </div>
+                  <div className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-xl border border-stone-100 dark:border-stone-800">
+                    <p className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">{t('kcalHelpExercise')}</p>
+                    <p className="text-sm text-stone-600 dark:text-stone-300">{t('kcalHelpExercise')}</p>
+                  </div>
+                  <div className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-xl border border-stone-100 dark:border-stone-800">
+                    <p className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">{t('kcalHelpKetosis')}</p>
+                    <p className="text-sm text-stone-600 dark:text-stone-300">{t('kcalHelpKetosis')}</p>
+                  </div>
+                  <div className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-xl border border-stone-100 dark:border-stone-800">
+                    <p className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">{t('kcalHelpStarvation')}</p>
+                    <p className="text-sm text-stone-600 dark:text-stone-300">{t('kcalHelpStarvation')}</p>
+                  </div>
+                </div>
+                <p className="text-xs text-stone-400 dark:text-stone-500 italic text-center pt-2">
+                  {t('kcalHelpChangesDesc')}
+                </p>
+              </div>
+            </div>
+            
+            <div className="p-6 bg-stone-50 dark:bg-stone-900/50 border-t border-stone-100 dark:border-stone-800 flex justify-end">
+              <button 
+                onClick={() => setIsKcalHelpOpen(false)}
+                className="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20"
+              >
+                {t('understood')}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {isMoleculeModalOpen && (
             <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
