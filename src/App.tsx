@@ -1241,16 +1241,22 @@ export default function App() {
 
   const carbonIngested = useMemo(() => {
     return meals.reduce((acc, meal) => {
-      const c = (meal.carbs * CARBON_FRACTIONS.carbs) + 
-                (meal.protein * CARBON_FRACTIONS.protein) + 
-                (meal.fat * CARBON_FRACTIONS.fat);
+      const carbs = Number(meal.carbs) || 0;
+      const protein = Number(meal.protein) || 0;
+      const fat = Number(meal.fat) || 0;
+      const c = (carbs * CARBON_FRACTIONS.carbs) + 
+                (protein * CARBON_FRACTIONS.protein) + 
+                (fat * CARBON_FRACTIONS.fat);
       return acc + c;
     }, 0);
   }, [meals]);
 
   const energyUsedKcal = useMemo(() => {
+    const w = Number(weight) || 0;
     return activities.reduce((acc, act) => {
-      return acc + (act.met * weight * act.hours);
+      const met = Number(act.met) || 0;
+      const hours = Number(act.hours) || 0;
+      return acc + (met * w * hours);
     }, 0);
   }, [activities, weight]);
 
@@ -1272,7 +1278,15 @@ export default function App() {
   };
 
   const updateMeal = (id: string, field: keyof Meal, value: string | number) => {
-    setMeals(meals.map(m => m.id === id ? { ...m, [field]: value } : m));
+    let finalValue = value;
+    if (field === 'carbs' || field === 'fat' || field === 'protein') {
+      const n = Number(value);
+      finalValue = isNaN(n) ? 0 : Math.max(0, n);
+    } else if (field === 'time') {
+      const n = Number(value);
+      finalValue = isNaN(n) ? 12 : Math.min(23, Math.max(0, Math.floor(n)));
+    }
+    setMeals(meals.map(m => m.id === id ? { ...m, [field]: finalValue } : m));
   };
 
   const removeMeal = (id: string) => {
@@ -1284,7 +1298,18 @@ export default function App() {
   };
 
   const updateActivity = (id: string, field: keyof ActivityItem, value: string | number) => {
-    setActivities(activities.map(a => a.id === id ? { ...a, [field]: value } : a));
+    let finalValue = value;
+    if (field === 'hours') {
+      const n = Number(value);
+      finalValue = isNaN(n) ? 0 : Math.min(24, Math.max(0, n));
+    } else if (field === 'startTime') {
+      const n = Number(value);
+      finalValue = isNaN(n) ? 12 : Math.min(23, Math.max(0, Math.floor(n)));
+    } else if (field === 'met') {
+      const n = Number(value);
+      finalValue = isNaN(n) ? 1 : Math.max(0, n);
+    }
+    setActivities(activities.map(a => a.id === id ? { ...a, [field]: finalValue } : a));
   };
 
   const removeActivity = (id: string) => {
@@ -1333,23 +1358,32 @@ export default function App() {
 
     // Add meals
     meals.forEach(meal => {
-      const c = (meal.carbs * CARBON_FRACTIONS.carbs) + 
-                (meal.protein * CARBON_FRACTIONS.protein) + 
-                (meal.fat * CARBON_FRACTIONS.fat);
-      const hour = meal.time ?? 12;
-      data[hour].input += c;
+      const carbs = Number(meal.carbs) || 0;
+      const protein = Number(meal.protein) || 0;
+      const fat = Number(meal.fat) || 0;
+      
+      const c = (carbs * CARBON_FRACTIONS.carbs) + 
+                (protein * CARBON_FRACTIONS.protein) + 
+                (fat * CARBON_FRACTIONS.fat);
+      const hour = Math.min(23, Math.max(0, Math.floor(Number(meal.time) || 0)));
+      if (data[hour]) data[hour].input += c;
     });
 
     // Add activities
     activities.forEach(act => {
-      const hourlyEnergy = (act.met * weight);
-      const hourlyCarbon = hourlyEnergy / kcalPerGC;
-      const start = act.startTime ?? 12;
+      const met = Number(act.met) || 0;
+      const hours = Math.min(24, Math.max(0, Number(act.hours) || 0));
+      const startTime = Math.min(23, Math.max(0, Math.floor(Number(act.startTime) || 0)));
       
-      for (let i = 0; i < act.hours; i++) {
-        const hour = (start + i) % 24;
-        data[hour].output += hourlyCarbon;
-        data[hour].energy += hourlyEnergy;
+      const hourlyEnergy = (met * weight);
+      const hourlyCarbon = kcalPerGC > 0 ? hourlyEnergy / kcalPerGC : 0;
+      
+      for (let i = 0; i < hours; i++) {
+        const hour = (startTime + i) % 24;
+        if (data[hour]) {
+          data[hour].output += hourlyCarbon;
+          data[hour].energy += hourlyEnergy;
+        }
       }
     });
 
@@ -1957,7 +1991,10 @@ export default function App() {
                       <input 
                         type="number" 
                         value={weight} 
-                        onChange={(e) => setWeight(Number(e.target.value))}
+                        onChange={(e) => {
+                          const n = Number(e.target.value);
+                          setWeight(isNaN(n) ? 0 : Math.max(0, n));
+                        }}
                         className="w-full p-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       />
                     </div>
@@ -1976,7 +2013,10 @@ export default function App() {
                         type="number" 
                         step="0.1"
                         value={kcalPerGC} 
-                        onChange={(e) => setKcalPerGC(Number(e.target.value))}
+                        onChange={(e) => {
+                          const n = Number(e.target.value);
+                          setKcalPerGC(isNaN(n) ? 10.5 : Math.max(0.1, n));
+                        }}
                         className="w-full p-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       />
                     </div>
